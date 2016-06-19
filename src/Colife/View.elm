@@ -11,12 +11,7 @@ import Colife.Model exposing (Grid(Grid), State(Alive, Dead))
 view : Grid State -> Html a
 view (Grid _ grid) =
   svg [viewBox "-50 -50 1000 1000"]
-    (List.indexedMap row grid)
-
-row : Int -> List State -> Svg a
-row m vect =
-  g []
-    (List.indexedMap (cell m) vect)
+    (List.concat (List.indexedMap (List.indexedMap << cell) grid))
 
 cell : Int -> Int -> State -> Svg a
 cell m n state =
